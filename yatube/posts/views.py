@@ -8,7 +8,7 @@ elements_on_page = 10
 
 def index(request):
     template = 'posts/index.html'
-    posts = Post.objects.order_by('-pub_date')[:elements_on_page]
+    posts = Post.objects[:elements_on_page]
     context = {
         'posts': posts,
     }
@@ -17,8 +17,7 @@ def index(request):
 
 def group_posts(request, slug):
     group = get_object_or_404(Group, slug=slug)
-    posts = Post.objects.filter(group=group).order_by(
-        '-pub_date')[:elements_on_page]
+    posts = group.posts[:elements_on_page]
     context = {
         'group': group,
         'posts': posts,
