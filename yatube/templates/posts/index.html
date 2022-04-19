@@ -1,32 +1,26 @@
 {% extends 'base.html' %}
-{% block title %}{{ index }}{% endblock %} 
-{% block main %}
-    <main> 
-      <!-- класс py-5 создает отступы сверху и снизу блока -->
-      <div class="container py-5">     
-        <h1>Последние обновления на сайте</h1>
-        {% for article in posts %}
-        <article>
-          <ul>
-            <li>
-              Автор: {{ article.author.get_full_name }}
-            </li>
-            <li>
-              Дата публикации: {{ article.pub_date|date:'j F Y' }}
-            </li>
-          </ul>      
-          <p>
-            {{ article.text }}
-          </p>
-          {% if article.group %}   
-            <a href="{% url 'posts:group_list' article.group.slug %}">все записи группы</a>
-          {% endif %}
-        </article>
-        <hr>
-        {% empty %}
-          <p>Все обновления ещё только случаются.</p>
-        {% endfor %}
-        <!-- под последним постом нет линии -->
-      </div>  
-    </main>
+{% block title %}Последние обновления на сайте{% endblock %}
+{% block headliner %}Последние обновления на сайте{% endblock %}
+{% block article %}
+{% for article in posts %}
+  <article>
+    <ul>
+      <li>
+        Автор: {{ article.author.get_full_name }}
+      </li>
+      <li>
+        Дата публикации: {{ article.pub_date|date:'j F Y' }}
+      </li>
+    </ul>      
+    <p>
+      {{ article.text }}
+    </p>
+    {% if article.group %}   
+      <a href="{% url 'posts:group_list' article.group.slug %}">все записи группы</a>
+    {% endif %}
+  </article>
+  <hr>
+  {% empty %}
+    <p>Все обновления ещё только случаются.</p>
+  {% endfor %}
 {% endblock %}
