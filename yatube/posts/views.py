@@ -3,12 +3,12 @@ from django.shortcuts import render, get_object_or_404
 from .models import Post, Group
 
 
-elements_on_page = 10
+ON_PAGE = 10
 
 
 def index(request):
     template = 'posts/index.html'
-    posts = Post.objects.all()[:elements_on_page]
+    posts = Post.objects.all()[:ON_PAGE]
     context = {
         'posts': posts,
     }
@@ -17,7 +17,7 @@ def index(request):
 
 def group_posts(request, slug):
     group = get_object_or_404(Group, slug=slug)
-    posts = group.posts.all()[:elements_on_page]
+    posts = group.posts.all()[:ON_PAGE]
     context = {
         'group': group,
         'posts': posts,
